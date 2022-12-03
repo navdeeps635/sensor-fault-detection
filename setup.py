@@ -4,7 +4,7 @@ from typing import List
 
 requirement_file_name = 'requirements.txt'
 e_dot = '-e .' 
-def get_requirements(requirement_file_name): # will return list of libraries mentioned in requirements.txt
+def get_requirements(): # will return list of libraries mentioned in requirements.txt
     
     with open(requirement_file_name) as requirement_file:
         requirement_list = requirement_file.readlines()
