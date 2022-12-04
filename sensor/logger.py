@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 #log file name
-log_file_name = f"{datetime().now().strftime('%m%d%Y_%H%M_%S')}.log"
+log_file_name = f"{datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}.log"
 
 #log directory
 log_file_dir = os.path.join(os.getcwd(),"logs")
@@ -17,5 +17,5 @@ log_file_path = os.path.join(log_file_dir,log_file_name)
 logging.basicConfig(
     filename=log_file_path,
     format= "[%(asctime)s] %(lineno)d %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
+    level=logging.DEBUG
 )
