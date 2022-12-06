@@ -42,7 +42,14 @@ class DataValidationConfig:
         self.missing_threshold:float = 0.7
         self.base_file_path = os.path.join("aps_failure_training_set1.csv")
         
-class DataTransformationConfig:...
+class DataTransformationConfig:
+
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.data_transform_dir = os.path.join(training_pipeline_config.artifact_dir,"data_transformation")
+        self.transform_object_path = os.path.join(self.data_transform_dir,"transformer","transform.pkl")
+        self.transform_train_path = os.path.join(self.data_transform_dir,"transformed",TRAIN_FILE_NAME)
+        self.transform_test_path = os.path.join(self.data_transform_dir,"transformed",TEST_FILE_NAME)
+
 class ModelTrainerConfig:...
 class ModelEvaluationConfig:...
 class ModelPusherConfig:...
