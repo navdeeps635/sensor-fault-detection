@@ -6,8 +6,8 @@ import os, sys
 import pandas as pd
 import numpy as np
 from sensor import utils
-from sklearn.preprocessing import Pipeline
-from sklearn.Pipeline import LabelEncoder
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import LabelEncoder
 from imblearn.combine import SMOTETomek
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import RobustScaler
@@ -15,8 +15,7 @@ from sensor.config import TARGET_COLUMN
 
 class DataTransformation:
 
-    def __init__(self, data_transformation_config:config_entity.DataTransformationConfig,
-                data_ingestion_artifact:artifact_entity.DataIngestionArtifact):
+    def __init__(self, data_transformation_config:config_entity.DataTransformationConfig, data_ingestion_artifact:artifact_entity.DataIngestionArtifact):
         try:
             self.data_transformation_config = data_transformation_config
             self.data_ingestion_artifact = data_ingestion_artifact
@@ -27,7 +26,7 @@ class DataTransformation:
     @classmethod
     def get_data_tranformer_object(cls)-> Pipeline:
         try:
-            simple_imputer = SimpleImputer(strategy = "mean", fill_values = 0)
+            simple_imputer = SimpleImputer(strategy = "mean", fill_value = 0)
             robust_scaler = RobustScaler()
 
             pipeline = Pipeline(steps = [("Imputer",simple_imputer),("RobustScaler",robust_scaler)])
@@ -37,15 +36,15 @@ class DataTransformation:
         except Exception as e:
             raise SensorException(e, sys)
 
-    def initiate_data_transdormation(self,)->artifact_entity.DataTransformationArtifact:
+    def initiate_data_transformation(self,)->artifact_entity.DataTransformationArtifact:
         try:
             #read train and test dataframe
             train_df = pd.read_csv(self.data_ingestion_artifact.train_file_path)
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
 
             #select input features for train and test dataframe
-            input_feature_train_df = train_df.drop(TARGET_COLUMN,axis =1)
-            input_feature_test_df = test_df.drop(TARGET_COLUMN,axis =1)
+            input_feature_train_df = train_df.drop(TARGET_COLUMN,axis = 1)
+            input_feature_test_df = test_df.drop(TARGET_COLUMN,axis = 1)
 
             #select target features for train and test dataframe
             target_feature_train_df = train_df[TARGET_COLUMN]

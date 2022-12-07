@@ -89,9 +89,6 @@ def save_numpy_array_data(file_path:str,array:np.array):
     except Exception as e:
         raise SensorException(e, sys)
 
-    except Exception as e:
-        raise SensorException(e, sys)
-
 def load_numpy_array_data(file_path:str)-> np.array:
     """
     load numpy array data from file
