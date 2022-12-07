@@ -14,6 +14,7 @@ class ModelTrainer:
     def __init__(self,model_trainer_config:config_entity.ModelTrainerConfig,
                 data_transformation_artifact:artifact_entity.DataTransformationArtifact):
         try:
+            logging.info(f"{'=='*5} Model Trainer {'=='*5}")
             self.model_trainer_config = model_trainer_config
             self.data_transformation_artifact = data_transformation_artifact
 
@@ -31,13 +32,13 @@ class ModelTrainer:
     def train_model(self,X,y):
         try:
             xgb_clf = XGBClassifier()
-            xgb_clf.fit()
+            xgb_clf.fit(X,y)
             return xgb_clf
 
         except Exception as e:
             raise SensorException(e, sys)
 
-    def initiate_model_trainer()->artifact_entity.ModelTrainerArtifact:
+    def initiate_model_trainer(self)->artifact_entity.ModelTrainerArtifact:
         try:
             logging.info(f"loading train and test array")
             train_arr = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_train_path)
@@ -48,7 +49,7 @@ class ModelTrainer:
             X_test, y_test = test_arr[:,:-1], test_arr[:,-1]
 
             logging.info(f"train the model")
-            model = self.train_model(x = X_train,y = y_train)
+            model = self.train_model(X = X_train,y = y_train)
 
             logging.info(f"calculate f1 train score") 
             yhat_train = model.predict(X_train)

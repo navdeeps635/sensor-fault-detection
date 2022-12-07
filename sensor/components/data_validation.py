@@ -16,7 +16,7 @@ class DataValidation:
                 data_ingestion_artifact:artifact_entity.DataTransformationArtifact):
     
         try:
-            logging.info(f"{'>>'*5} Data Validation {'<<'*5}")
+            logging.info(f"{'=='*5} Data Validation {'=='*5}")
             self.data_validation_config = data_validation_config
             self.data_ingestion_artifact = data_ingestion_artifact
             self.validation_error = dict()
