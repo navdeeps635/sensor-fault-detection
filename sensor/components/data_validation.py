@@ -7,6 +7,7 @@ from sensor.logger import logging
 from scipy.stats import ks_2samp
 from typing import Optional
 from sensor import utils
+from sensor.config import TARGET_COLUMN
 
 class DataValidation:
     
@@ -123,7 +124,7 @@ class DataValidation:
             logging.info(f"drop null values columns from test dataframe")
             test_df = self.drop_missing_values_columns(df = test_df,report_key_name = "missing_values_within_test_dataset")
 
-            exclude_columns = ['class']
+            exclude_columns = TARGET_COLUMN
             utils.convert_column_float(df = base_df, exclude_columns = exclude_columns)
             utils.convert_column_float(df = train_df, exclude_columns = exclude_columns)
             utils.convert_column_float(df = test_df, exclude_columns = exclude_columns)
